@@ -6,6 +6,8 @@ const { Navigator, Screen } = createStackNavigator();
 
 import SignIn from './pages/SignIn';
 
+import Home from './pages/Home';
+
 export default ({ isSignedIn = false }) => {
     const stackNavigationOption = {
         headerTransparent: false,
@@ -29,13 +31,26 @@ export default ({ isSignedIn = false }) => {
 
     return (
         <NavigationContainer>
-            <Navigator screenOptions={stackNavigationOption}>
-                <Screen
-                    name="SignIn"
-                    component={SignIn}
-                    options={ScreenOptionNoHeader}
-                />
-            </Navigator>
+            {isSignedIn ? (
+                <Navigator screenOptions={stackNavigationOption}>
+                    <Screen
+                        name="Home"
+                        component={Home}
+                        options={ScreenOptionNoHeader}
+                    />
+
+                </Navigator>
+            ) : (
+                    <Navigator screenOptions={stackNavigationOption}>
+                        <Screen
+                            name="SignIn"
+                            component={SignIn}
+                            options={ScreenOptionNoHeader}
+                        />
+                    </Navigator>
+                )
+            }
+
         </NavigationContainer>
     )
 }
