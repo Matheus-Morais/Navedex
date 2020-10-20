@@ -6,7 +6,7 @@ const { Navigator, Screen } = createStackNavigator();
 
 import SignIn from './pages/SignIn';
 
-export default ({ isSignedIn = false, phoneVerified = false }) => {
+export default ({ isSignedIn = false }) => {
     const stackNavigationOption = {
         headerTransparent: false,
         headerTintColor: "#000",
