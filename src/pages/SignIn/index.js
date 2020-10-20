@@ -1,6 +1,11 @@
 import React, { useRef, useState } from 'react';
+import { Alert } from "react-native";
+import { useDispatch, useSelector } from 'react-redux';
 
 import logo from '../../assets/Logo.png';
+
+import { loginSuccess } from '../../store/modules/auth/actions';
+import api from '../../services/api';
 
 import {
     Container,
@@ -14,6 +19,7 @@ import {
 } from './styles';
 
 const SignIn = () => {
+    const dispatch = useDispatch()
     const passwordRef = useRef()
 
     const [email, setEmail] = useState('');
@@ -21,7 +27,47 @@ const SignIn = () => {
     const [loading, setLoading] = useState(false);
 
     async function handleSubmit() {
-        setLoading(!loading)
+        setLoading(true)
+
+        let errors = ''
+
+        //Verifica se os campos foram informados
+        if (!email) {
+            errors = 'Email não informado.'
+        }
+
+        if (!password) {
+            if (errors) {
+                errors = `${errors}\nSenha não informada.`
+            } else {
+                errors = 'Senha não informada.'
+            }
+        }
+
+        if (errors) {
+            Alert.alert('Opps!', errors)
+            setLoading(false)
+            return
+        }
+
+        //variavel responsavel para requisição
+        let response
+        let credentials = {
+            email,
+            password
+        }
+
+        try {
+            response = await api.post('/users/login', credentials)
+        } catch (error) {
+            Alert.alert('Opps!', 'Verifique seus dados.')
+            setLoading(false)
+            return
+        }
+
+        api.defaults.headers.Authorization = `${response.data.token}`;
+        dispatch(loginSuccess(response.data.token, response.data.id))
+        setLoading(false)
         return
     }
 

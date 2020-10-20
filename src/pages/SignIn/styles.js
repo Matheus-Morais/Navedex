@@ -34,7 +34,15 @@ export const ItemForm = styled.View`
     margin: ${height * 0.035}px 16px 0 16px;
 `;
 
-export const Label = styled.Text``;
+export const Label = styled.Text`
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 18px;
+
+    display: flex;
+    align-items: center;
+`;
 
 export const FormInput = styled(Input)`
 `;
