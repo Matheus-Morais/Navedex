@@ -5,6 +5,9 @@ import api from '../../../services/api';
 import EditIcon from '../../../assets/Edit-Icon.png';
 import DeleteIcon from '../../../assets/Delete-Icon.png';
 
+import Message from '../../../components/Message';
+import Confirm from '../../../components/Confirm';
+
 import {
     Container,
     ContainerLoading,
@@ -26,6 +29,11 @@ import {
 export default function Navers({ navigation }) {
     const [loading, setLoading] = useState(true)
 
+    const [modalConfirmVisible, setModalConfirmVisible] = useState(false)
+    const [idNaver, setIdNaver] = useState('')
+
+    const [modalMessageVisible, setModalMessageVisible] = useState(false)
+
     const [navers, setNavers] = useState([])
 
     //Função que busca os Navers
@@ -41,6 +49,36 @@ export default function Navers({ navigation }) {
         }
         setLoading(false)
         setNavers(response.data)
+        return
+    }
+
+    //Função que abre a modal de confirmação
+    function toggleModalConfirmOpen(id) {
+        setIdNaver(id)
+        setModalConfirmVisible(true)
+        return
+    }
+
+    //Função que fecha a modal de confirmação
+    function toggleModalConfirmClose(isNotDeleted = true) {
+        setModalConfirmVisible(false)
+        //Com o isNotDeleted, posso controlar quando vai ser atualizada a pagina
+        if (!isNotDeleted) {
+            getNavers()
+            toggleModalMessageOpen()
+        }
+        return
+    }
+
+    //Função que abre a modal de messagem
+    function toggleModalMessageOpen() {
+        setModalMessageVisible(true)
+        return
+    }
+
+    //Função que fecha a modal de messagem
+    function toggleModalMessageClose() {
+        setModalMessageVisible(false)
         return
     }
 
@@ -80,7 +118,7 @@ export default function Navers({ navigation }) {
                             <Label isBold>{naver.name}</Label>
                             <Label>{naver.job_role}</Label>
                             <ContainerOptions>
-                                <Touchable onPress={() => { }}>
+                                <Touchable onPress={() => { toggleModalConfirmOpen(naver.id) }}>
                                     <Icon source={DeleteIcon} resizeMode="contain" />
                                 </Touchable>
 
@@ -93,7 +131,8 @@ export default function Navers({ navigation }) {
                 />
 
             }
-
+            <Confirm visible={modalConfirmVisible} onRequestClose={toggleModalConfirmClose} getNavers={getNavers} idNaver={idNaver} />
+            <Message visible={modalMessageVisible} onRequestClose={toggleModalMessageClose} Title="Naver excluído" Message="Naver excluído com sucesso!" />
         </Container>
     );
 }
