@@ -46,7 +46,7 @@ export default function Naver({ route, navigation }) {
 
     //Função que fecha a modal de messagem
     function toggleModalMessageClose() {
-        navigation.goBack()
+        navigation.push('Navers')
         setModalMessageVisible(false)
         return
     }
