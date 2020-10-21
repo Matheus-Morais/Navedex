@@ -81,7 +81,7 @@ export default function Naver({ route, navigation }) {
                 <ContainerButtons>
                     <DeleteButton color="#212121" icon="delete" onPress={toggleModalConfirmOpen}>Excluir</DeleteButton>
 
-                    <EditButton icon="edit" onPress={() => { }}>Editar</EditButton>
+                    <EditButton icon="edit" onPress={() => { navigation.navigate('NewNaver', { naver }) }}>Editar</EditButton>
                 </ContainerButtons>
             </NaverItem>
             <Confirm visible={modalConfirmVisible} onRequestClose={toggleModalConfirmClose} idNaver={naver.id} />

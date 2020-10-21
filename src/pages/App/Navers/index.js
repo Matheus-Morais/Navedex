@@ -124,7 +124,7 @@ export default function Navers({ navigation }) {
                                     <Icon source={DeleteIcon} resizeMode="contain" />
                                 </Touchable>
 
-                                <Touchable onPress={() => { }}>
+                                <Touchable onPress={() => { navigation.navigate('NewNaver', { naver }) }}>
                                     <Icon source={EditIcon} resizeMode="contain" />
                                 </Touchable>
                             </ContainerOptions>
