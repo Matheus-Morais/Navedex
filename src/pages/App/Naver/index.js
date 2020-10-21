@@ -3,12 +3,12 @@ import { View, Text } from 'react-native';
 
 // import { Container } from './styles';
 
-const Home = () => {
+const Naver = () => {
     return (
         <View>
-            <Text>Hello home</Text>
+            <Text>Hello Naver</Text>
         </View>
     );
 }
 
-export default Home;
+export default Naver;
