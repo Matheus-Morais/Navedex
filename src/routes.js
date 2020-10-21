@@ -1,12 +1,15 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const { Navigator, Screen } = createStackNavigator();
+const { Navigator: NavigatorDrawer, Screen: ScreenDrawer } = createDrawerNavigator();
 
 import SignIn from './pages/SignIn';
 
-import Home from './pages/Home';
+import Navers from './pages/App/router';
+import Logout from './pages/Logout';
 
 export default ({ isSignedIn = false }) => {
     const stackNavigationOption = {
@@ -30,17 +33,16 @@ export default ({ isSignedIn = false }) => {
     }
 
     return (
-        <NavigationContainer>
-            {isSignedIn ? (
-                <Navigator screenOptions={stackNavigationOption}>
-                    <Screen
-                        name="Home"
-                        component={Home}
-                        options={ScreenOptionNoHeader}
-                    />
 
-                </Navigator>
-            ) : (
+        isSignedIn ? (
+            <NavigationContainer>
+                <NavigatorDrawer initialRouteName="Navers">
+                    <ScreenDrawer name="Navers" component={Navers} />
+                    <ScreenDrawer name="Logout" component={Logout} />
+                </NavigatorDrawer>
+            </NavigationContainer>
+        ) : (
+                <NavigationContainer>
                     <Navigator screenOptions={stackNavigationOption}>
                         <Screen
                             name="SignIn"
@@ -48,9 +50,7 @@ export default ({ isSignedIn = false }) => {
                             options={ScreenOptionNoHeader}
                         />
                     </Navigator>
-                )
-            }
-
-        </NavigationContainer>
+                </NavigationContainer>
+            )
     )
 }
