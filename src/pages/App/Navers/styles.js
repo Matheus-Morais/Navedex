@@ -70,7 +70,7 @@ export const Naver = styled.View`
     margin-left: 9px;
 `;
 
-export const ContainerImage = styled.View`
+export const ContainerImage = styled.TouchableOpacity`
     height: ${height * 0.22}px;
     width: ${height * 0.22}px;
 `;

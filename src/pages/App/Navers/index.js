@@ -110,9 +110,11 @@ export default function Navers({ navigation }) {
                     data={navers}
                     ListHeaderComponent={renderHeader}
                     keyExtractor={naver => String(naver.id)}
+                    refreshing={loading}
+                    onRefresh={getNavers}
                     renderItem={({ item: naver }) => (
                         <Naver>
-                            <ContainerImage>
+                            <ContainerImage onPress={() => { navigation.navigate('Naver', { naver }) }}>
                                 <Avatar source={{ uri: naver.url }} resizeMode="contain" />
                             </ContainerImage>
                             <Label isBold>{naver.name}</Label>
