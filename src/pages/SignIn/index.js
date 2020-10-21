@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { Alert } from "react-native";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import logo from '../../assets/Logo.png';
-
 import { loginSuccess } from '../../store/modules/auth/actions';
+import Message from '../../components/Message';
 import api from '../../services/api';
 
 import {
@@ -21,6 +21,10 @@ import {
 const SignIn = () => {
     const dispatch = useDispatch()
     const passwordRef = useRef()
+
+    const [modalVisible, setModalVisible] = useState(false)
+    const [modalTitle, setModalTitle] = useState()
+    const [modalMessage, setModalMessage] = useState()
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -45,7 +49,10 @@ const SignIn = () => {
         }
 
         if (errors) {
-            Alert.alert('Opps!', errors)
+            setModalTitle('Opps!')
+            setModalMessage(errors)
+
+            toggleModalOpen()
             setLoading(false)
             return
         }
@@ -60,7 +67,10 @@ const SignIn = () => {
         try {
             response = await api.post('/users/login', credentials)
         } catch (error) {
-            Alert.alert('Opps!', 'Verifique seus dados.')
+            setModalTitle('Opps!')
+            setModalMessage('Verifique seus dados.')
+
+            toggleModalOpen()
             setLoading(false)
             return
         }
@@ -68,6 +78,17 @@ const SignIn = () => {
         api.defaults.headers.Authorization = `${response.data.token}`;
         dispatch(loginSuccess(response.data.token, response.data.id))
         setLoading(false)
+        return
+    }
+
+    function toggleModalOpen() {
+        setModalVisible(true)
+        return
+    }
+
+    //Função que fecha a modal
+    function toggleModalClose() {
+        setModalVisible(false)
         return
     }
 
@@ -110,6 +131,7 @@ const SignIn = () => {
                         <SubmitButton loading={loading} onPress={handleSubmit}>Entrar</SubmitButton>
                     </ItemForm>
                 </Form>
+                <Message visible={modalVisible} onRequestClose={toggleModalClose} Title={modalTitle} Message={modalMessage} />
             </KeyboardContainer>
         </Container>
     );
