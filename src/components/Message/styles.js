@@ -1,7 +1,4 @@
 import styled from 'styled-components/native';
-import { Dimensions } from 'react-native';
-
-const { height, width } = Dimensions.get("window");
 
 export const Container = styled.View`
     width: 100%;
