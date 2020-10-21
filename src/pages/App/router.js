@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 const { Navigator, Screen } = createStackNavigator()
 
 import Navers from './Navers'
+import NewNaver from './NewNaver';
 
 
 function NaversRouter() {
@@ -25,6 +26,10 @@ function NaversRouter() {
             <Screen
                 name="Navers"
                 component={Navers}
+            />
+            <Screen
+                name="NewNaver"
+                component={NewNaver}
             />
         </Navigator>
     )
