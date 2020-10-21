@@ -3,7 +3,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const { Navigator, Screen } = createStackNavigator()
 
-import Navers from './Navers'
+import Navers from './Navers';
+import Naver from './Naver';
 import NewNaver from './NewNaver';
 
 
@@ -26,6 +27,10 @@ function NaversRouter() {
             <Screen
                 name="Navers"
                 component={Navers}
+            />
+            <Screen
+                name="Naver"
+                component={Naver}
             />
             <Screen
                 name="NewNaver"
