@@ -33,7 +33,7 @@ export default function Confirm({ visible, onRequestClose, idNaver }) {
             setLoading(false)
             return
         }
-        onRequestClose()
+        onRequestClose(false)
         setLoading(false)
         return
     }
