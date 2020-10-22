@@ -75,7 +75,7 @@ const SignIn = () => {
             return
         }
 
-        api.defaults.headers.Authorization = `${response.data.token}`;
+        api.defaults.headers.Authorization = `Bearer ${response.data.token}`;
         dispatch(loginSuccess(response.data.token, response.data.id))
         setLoading(false)
         return
