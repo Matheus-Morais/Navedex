@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { intervalToDuration } from 'date-fns';
 
 import Message from '../../../components/Message';
 import Confirm from '../../../components/Confirm';
@@ -21,6 +22,15 @@ export default function Naver({ route, navigation }) {
     const [modalConfirmVisible, setModalConfirmVisible] = useState(false)
 
     const [modalMessageVisible, setModalMessageVisible] = useState(false)
+
+    //função que pega o tempo decorrido
+    function getTime(dateString) {
+        let interval = intervalToDuration({
+            start: new Date(dateString),
+            end: new Date()
+        })
+        return `${interval.years} anos, ${interval.months} meses e ${interval.days} dias`
+    }
 
     //Função que abre a modal de confirmação
     function toggleModalConfirmOpen() {
@@ -64,12 +74,12 @@ export default function Naver({ route, navigation }) {
 
             <NaverItem>
                 <SubTitle isTitle>Idade</SubTitle>
-                <SubTitle>{naver.birthdate}</SubTitle>
+                <SubTitle>{getTime(naver.birthdate)}</SubTitle>
             </NaverItem>
 
             <NaverItem>
                 <SubTitle isTitle>Tempo de empresa</SubTitle>
-                <SubTitle>{naver.admission_date}</SubTitle>
+                <SubTitle>{getTime(naver.admission_date)}</SubTitle>
             </NaverItem>
 
             <NaverItem>
