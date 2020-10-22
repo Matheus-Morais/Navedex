@@ -33,7 +33,7 @@ export default function NewNaver({ route, navigation }) {
     const [birthdate, setBirthdate] = useState(naver ? `${dateBirthdateFormated[2]}/${dateBirthdateFormated[1]}/${dateBirthdateFormated[0]}` : '')
     const [project, setProject] = useState(naver ? naver.project : '')
     const [name, setName] = useState(naver ? naver.name : '')
-    const [url, setUrl] = useState(naver ? naver.url : 'https://pbs.twimg.com/profile_images/1316405760142835713/hiP2_LfJ_400x400.jpg')
+    const [url, setUrl] = useState(naver ? naver.url : '')
 
     async function saveNaver() {
         setLoading(true)
