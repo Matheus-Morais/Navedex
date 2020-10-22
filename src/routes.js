@@ -1,7 +1,19 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { Image, Dimensions } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import {
+    createDrawerNavigator,
+    DrawerContentScrollView,
+    DrawerItemList,
+    DrawerItem,
+} from '@react-navigation/drawer';
+
+//Action para logout
+import { logout } from './store/modules/auth/actions';
+//Icon do menu
+import Menu from './assets/menu.png';
 
 const { Navigator, Screen } = createStackNavigator();
 const { Navigator: NavigatorDrawer, Screen: ScreenDrawer } = createDrawerNavigator();
@@ -9,9 +21,10 @@ const { Navigator: NavigatorDrawer, Screen: ScreenDrawer } = createDrawerNavigat
 import SignIn from './pages/SignIn';
 
 import Navers from './pages/App/router';
-import Logout from './pages/Logout';
 
 export default ({ isSignedIn = false }) => {
+    const dispatch = useDispatch()
+
     const stackNavigationOption = {
         headerTransparent: false,
         headerTintColor: "#000",
@@ -32,13 +45,35 @@ export default ({ isSignedIn = false }) => {
         headerShown: false
     }
 
+    function CustomDrawerContent(props) {
+        return (
+            <DrawerContentScrollView {...props}>
+                <DrawerItem
+                    icon={({ focused, color, size }) =>
+                        <Image style={{ width: 25, height: 20 }} source={Menu} />
+                    }
+                    label=""
+                    style={{ marginBottom: Dimensions.get('window').height / 2.5 }}
+                    onPress={() => { }}
+                />
+                <DrawerItemList labelStyle={{ fontWeight: '600' }} {...props} />
+                <DrawerItem label="Sair" labelStyle={{ fontWeight: '600' }} onPress={() => dispatch(logout())} />
+            </DrawerContentScrollView>
+        );
+    }
+
     return (
 
         isSignedIn ? (
             <NavigationContainer>
-                <NavigatorDrawer initialRouteName="Navers">
+                <NavigatorDrawer
+                    initialRouteName="Navers"
+                    drawerStyle={{
+                        backgroundColor: '#FAFAFA',
+                    }}
+                    drawerContent={props => <CustomDrawerContent {...props} />}
+                >
                     <ScreenDrawer name="Navers" component={Navers} />
-                    <ScreenDrawer name="Logout" component={Logout} />
                 </NavigatorDrawer>
             </NavigationContainer>
         ) : (
