@@ -48,3 +48,8 @@ export const Label = styled.Text`
 
     color: #212121;
 `;
+
+export const Icon = styled.Image`
+    height: 24px;
+    width: 24px;
+`;

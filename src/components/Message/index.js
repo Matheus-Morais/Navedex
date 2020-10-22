@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Modal from '../Modal';
+import Clear from '../../assets/clear.png';
 
 import {
     Container,
@@ -9,6 +10,7 @@ import {
     ContainerClose,
     LabelTitle,
     Label,
+    Icon
 } from './styles';
 
 export default function Message({ visible, onRequestClose, Title, Message }) {
@@ -20,7 +22,7 @@ export default function Message({ visible, onRequestClose, Title, Message }) {
                         <LabelTitle>{Title}</LabelTitle>
 
                         <ContainerClose onPress={onRequestClose}>
-                            <LabelTitle>X</LabelTitle>
+                            <Icon source={Clear} />
                         </ContainerClose>
                     </ContainerHeader>
                     <Label>{Message}</Label>

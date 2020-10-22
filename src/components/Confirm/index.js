@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Modal from '../Modal';
 import Message from '../Message'
 import api from '../../services/api';
+import Clear from '../../assets/clear.png';
 
 import {
     Container,
@@ -13,7 +14,8 @@ import {
     Label,
     ContainerButtons,
     CancelButton,
-    DeleteButton
+    DeleteButton,
+    Icon
 } from './styles';
 
 export default function Confirm({ visible, onRequestClose, idNaver }) {
@@ -57,7 +59,7 @@ export default function Confirm({ visible, onRequestClose, idNaver }) {
                         <LabelTitle>Excluir naver</LabelTitle>
 
                         <ContainerClose onPress={onRequestClose}>
-                            <LabelTitle>X</LabelTitle>
+                            <Icon source={Clear} />
                         </ContainerClose>
                     </ContainerHeader>
                     <Label>Tem certeza que deseja excluir este naver?</Label>

@@ -67,3 +67,8 @@ export const CancelButton = styled(Button)`
 export const DeleteButton = styled(Button)`
     width: 45%;
 `;
+
+export const Icon = styled.Image`
+    height: 24px;
+    width: 24px;
+`;
